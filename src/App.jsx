@@ -10,31 +10,31 @@ function App() {
       id: 1,
       word: "ഞാൻ",
       transliteration: "Njan",
-      audio: "./src/assets/audio/njan.mp3",
+      audio: "/audio/njan.mp3",
     },
     {
       id: 2,
       word: "എന്റെ",
       transliteration: "Ente",
-      audio: "./src/assets/audio/ente.mp3",
+      audio: "/audio/ente.mp3",
     },
     {
       id: 3,
       word: "എനിക്ക്",
       transliteration: "Enikku",
-      audio: "./src/assets/audio/enikku.mp3",
+      audio: "/audio/enikku.mp3",
     },
     {
       id: 4,
       word: "ആണ്",
       transliteration: "Aanu",
-      audio: "./src/assets/audio/aanu.mp3",
+      audio: "/audio/aanu.mp3",
     },
     {
       id: 5,
       word: "ഉണ്ട്",
       transliteration: "Undu",
-      audio: "./src/assets/audio/undu.mp3",
+      audio: "/audio/undu.mp3",
     },
   ]);
 
