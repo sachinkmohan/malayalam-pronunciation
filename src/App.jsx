@@ -1,35 +1,89 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Malayalam words with their transliterations
+  // Each object has the word in Malayalam, its transliteration, and audio file path
+  const [playingId, setPlayingId] = useState(null);
+  const [words] = useState([
+    {
+      id: 1,
+      word: "ഞാൻ",
+      transliteration: "Njan",
+      audio: "./src/assets/audio/njan.mp3",
+    },
+    {
+      id: 2,
+      word: "എന്റെ",
+      transliteration: "Ente",
+      audio: "./src/assets/audio/ente.mp3",
+    },
+    {
+      id: 3,
+      word: "എനിക്ക്",
+      transliteration: "Enikku",
+      audio: "./src/assets/audio/enikku.mp3",
+    },
+    {
+      id: 4,
+      word: "ആണ്",
+      transliteration: "Aanu",
+      audio: "./src/assets/audio/aanu.mp3",
+    },
+    {
+      id: 5,
+      word: "ഉണ്ട്",
+      transliteration: "Undu",
+      audio: "./src/assets/audio/undu.mp3",
+    },
+  ]);
+
+  // Function to play audio
+  const playAudio = (audioPath, id) => {
+    if (!audioPath) {
+      alert("No audio file available for this word");
+      return;
+    }
+    // When you have actual audio files:
+    const audio = new Audio(audioPath);
+    // Set the playing state when playing starts
+    setPlayingId(id);
+
+    // Add event listener to reset playing state when audio completes
+    audio.addEventListener("ended", () => {
+      setPlayingId(null);
+    });
+
+    audio.play().catch((error) => {
+      console.error("Failed to play audio:", error);
+      setPlayingId(null);
+    });
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <h1>Malayalam Pronunciation Guide</h1>
+      <div className="word-list">
+        {words.map((item) => (
+          <div key={item.id} className="word-item">
+            <div className="word-text">
+              <span className="malayalam">{item.word}</span>
+              <span className="transliteration">({item.transliteration})</span>
+            </div>
+            <button
+              className={`play-button ${
+                playingId === item.id ? "playing" : ""
+              }`}
+              onClick={() => playAudio(item.audio, item.id)}
+              aria-label={`Listen to pronunciation of ${item.transliteration}`}
+            >
+              {playingId === item.id ? "🔊" : "🔈"}
+            </button>
+          </div>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
